@@ -1,6 +1,6 @@
-# Brew & Bite
+# Brew & Bite — Full-Stack Café Ordering Platform
 
-A full-stack café website with an image-led menu, customer ordering and table reservations, and a private owner dashboard. The Node.js server stores orders, bookings, payment records, and reviews in SQLite.
+A full-stack café ordering and reservation application with a customer storefront, private owner dashboard, Node.js REST API, and SQLite persistence. Guests can discover menu items, place pickup or dine-in orders, request reservations, and submit reviews; owners can manage operations from one dashboard. Razorpay Checkout is available as an optional payment integration.
 
 > **Project status:** This is a working MVP and portfolio project. Replace the sample café details and complete the launch checklist before using it for a real business or accepting live payments.
 
@@ -31,6 +31,21 @@ Sales totals include captured online payments and in-person payments recorded by
 - Razorpay Standard Checkout as an optional online-payment integration
 
 There are no third-party Node package dependencies to install.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  Guest[Customer] --> Storefront[Storefront: HTML, CSS, JavaScript]
+  Owner[Cafe owner] --> Dashboard[Owner dashboard: HTML, CSS, JavaScript]
+  Storefront -->|JSON over HTTP| API[Node.js REST API]
+  Dashboard -->|JSON over HTTP| API
+  API --> DB[(SQLite)]
+  API -->|Optional checkout and payment verification| Razorpay[Razorpay Checkout]
+  Razorpay -->|Signed webhook| API
+```
+
+The storefront and owner dashboard are separate browser clients that share the server API. Payment checkout remains disabled until provider credentials are configured.
 
 ## Run locally
 
