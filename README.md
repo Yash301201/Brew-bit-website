@@ -1,65 +1,98 @@
-# Brew & Bite — full-stack café website
+# Brew & Bite
 
-Yes, this is now a **full-stack project**: the customer website calls a Node.js API, the API stores bookings, orders, payments and reviews in SQLite, and the private owner dashboard reads and manages those records.
+A full-stack café website with an image-led menu, customer ordering and table reservations, and a private owner dashboard. The Node.js server stores orders, bookings, payment records, and reviews in SQLite.
 
-## Start it on this computer
+> **Project status:** This is a working MVP and portfolio project. Replace the sample café details and complete the launch checklist before using it for a real business or accepting live payments.
 
-Use Node.js 24 (or Node.js 22.13 or later). This project uses Node's built-in SQLite module and has no package install step.
+## Features
 
-1. Copy .env.example to .env in this folder.
-2. Change ADMIN_EMAIL and ADMIN_PASSWORD. The owner password must be at least 14 characters; do not use the example value.
-3. Review the café hours, time zone and table capacity in .env.
-4. Open a terminal in this folder and run `node server.mjs`.
-5. Open http://localhost:4173 for customers and http://localhost:4173/admin for the owner.
+### For guests
 
-The database file is created at data/brew-bite.sqlite on first run. It is ignored by Git and must be included in a secure backup. The initial owner login is created only when the database has no owner yet. Change it later from Owner dashboard → Account.
+- Browse, search, sort, filter, and save menu favourites.
+- Add menu items to a bag and submit a pickup or dine-in order.
+- Request a table reservation; the server checks opening hours, party size, future dates, and available seating.
+- Choose pay-at-café or, when configured, pay online through Razorpay Checkout.
+- Send a review for owner moderation.
 
-## Customer features
+### For the café owner
 
-- Reserve a table. The server checks opening hours, future dates, party size and overlapping seat capacity before it confirms the booking and returns a reference.
-- Place a pickup or dine-in order. The server loads current menu prices, checks availability, recalculates the total and saves item snapshots.
-- Pay at the café by cash, UPI or card; an owner records the collected method in the dashboard.
-- Use Razorpay Standard Checkout for online payment when the café has configured keys. The payment provider collects the payment details; this website does not store card numbers or CVVs.
-- Submit a review. A review stays private until an owner approves it.
+- Sign in to a private dashboard to review orders, sales, bookings, and payment references.
+- Update order and booking statuses, record in-person payments, and moderate reviews.
+- View a seven-day sales chart and popular menu items.
+- Update menu availability and prices, and change the owner password.
 
-## Owner features
+Sales totals include captured online payments and in-person payments recorded by the owner. Reconcile dashboard figures with payment-provider settlements and the café's cash register. Refunds and tax invoices are not automated.
 
-The private /admin page shows captured sales, orders needing attention, upcoming bookings, review moderation, the seven-day sales chart, popular items and payment references. Owners can update order and booking status, record in-person payments, approve or reject reviews, change prices, pause menu items and update their password.
+## Technology
 
-Sales include payments the provider confirms as captured and in-person payments the owner records as collected. Reconcile these totals against the café's payment provider and cash register. Refund initiation and tax invoice generation are not automated in this starter.
+- HTML, CSS, and browser JavaScript
+- Node.js 22.13 or later, using the built-in SQLite module
+- SQLite for local application data
+- Razorpay Standard Checkout as an optional online-payment integration
 
-## Payment setup
+There are no third-party Node package dependencies to install.
 
-Online checkout is deliberately off until RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET are supplied. Start with Razorpay test credentials and test transactions. The backend creates each provider order, checks the checkout signature, verifies payment amount and status with the provider, and accepts signed, deduplicated webhooks at /api/payments/webhook. Keep all secrets in .env; never put the secret or webhook secret in browser code.
+## Run locally
 
-Razorpay Checkout methods depend on the merchant account and enabled configuration. Its documentation describes UPI, cards, net banking and wallets for supported checkout configurations; some methods or instruments may need account enablement. See the official [Standard Checkout integration guide](https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/) and [payment method configuration guide](https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/configure-dashboard/checkout/).
+Install Node.js 22.13 or later, then open a terminal in the project folder.
 
-For test setup:
+**Windows PowerShell**
 
-1. Add the Razorpay test Key ID and Key Secret to .env, then restart the server.
-2. Use the test dashboard to configure a webhook pointing to your staging URL plus /api/payments/webhook. Keep a separate webhook secret in RAZORPAY_WEBHOOK_SECRET.
-3. Subscribe to payment.captured, payment.authorized and payment.failed. Test the customer callback and webhook against the test account before any live use.
-4. Use HTTPS and set APP_ORIGIN to the exact public website origin for a deployed site. Use live keys only after business verification and a successful staging review.
+```powershell
+Copy-Item .env.example .env
+```
 
-The local page can take bookings and pay-at-café orders without Razorpay credentials. A local server cannot receive gateway webhooks directly; test webhooks on a public staging endpoint or an approved HTTPS tunnel.
+**macOS or Linux**
+
+```sh
+cp .env.example .env
+```
+
+Edit `.env` before starting the server:
+
+1. Set a real `ADMIN_EMAIL` and a unique `ADMIN_PASSWORD` of at least 14 characters. Do not use the example value.
+2. Review the café name, time zone, opening hours, and table capacity.
+3. Keep payment credentials empty unless you are setting up Razorpay test mode.
+
+Start the app:
+
+```sh
+npm start
+```
+
+Open [http://localhost:4173](http://localhost:4173) for the customer site and [http://localhost:4173/admin](http://localhost:4173/admin) for the owner dashboard.
+
+The server creates `data/brew-bite.sqlite` on first run. The database and `.env` are excluded from Git. Keep secure backups of the database; the first owner account is created when the database has no owner yet. Change the password later from **Owner dashboard → Account**.
+
+For local development with automatic server restarts, run `npm run dev`. Run `npm run check` for JavaScript syntax checks; it is not a full automated test suite.
+
+## Optional online payments
+
+Razorpay checkout stays off until `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` are configured. Begin with test credentials. The server creates provider orders, verifies checkout signatures and payment status, and accepts signed, deduplicated webhooks at `/api/payments/webhook`. Payment details such as card numbers and CVVs are handled by the provider and are not stored by this site.
+
+To test webhooks, configure the provider dashboard with a public staging URL ending in `/api/payments/webhook` and set a separate `RAZORPAY_WEBHOOK_SECRET`. A local server cannot receive provider webhooks directly. Use HTTPS and set `APP_ORIGIN` to the deployed site's exact origin before testing a deployment. Follow the official [Standard Checkout integration guide](https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/) and [checkout configuration guide](https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/configure-dashboard/checkout/).
 
 ## Before a public launch
 
-This gives you a working full-stack MVP and a safe test-payment path. Finish these business and deployment details before accepting real customer money:
+- Replace sample menu prices and confirm tax treatment, allergens, stock, and service cut-off rules.
+- Add the real address, map pin, contact details, hours, reservation duration, and cancellation policy.
+- Configure a durable server disk, encrypted database backups, monitoring, HTTPS, and a tested restore process. This single-process SQLite setup is intended for a first café deployment; use a managed database before running multiple app instances or when operational needs outgrow one durable SQLite database.
+- Complete payment-provider onboarding and test successful payments, failures, refunds, webhook delivery, and settlement reconciliation before enabling live credentials.
+- Publish the café's privacy, terms, refund, cancellation, and contact information, and review the live flow against local business and payment requirements.
 
-- Replace sample menu prices with the café's approved prices, add tax treatment, allergen information, stock and service cut-off rules.
-- Add the real café address, map pin, contact number, hours, table capacity, reservation duration and cancellation/no-show policy.
-- Configure a durable server disk and encrypted database backups. This single-process SQLite setup suits a first café deployment. Move to managed PostgreSQL before running multiple app instances or when concurrent traffic and operational recovery needs outgrow one durable SQLite database.
-- Set an HTTPS domain, APP_ORIGIN, secure environment secrets, monitoring, backups and a tested restore process.
-- Complete Razorpay merchant onboarding, configure the enabled payment methods, test failures and refunds, and reconcile dashboard results against provider settlement reports.
-- Publish the café's privacy, terms, refund, cancellation and contact information, and have the final flow reviewed against local business and payment requirements.
+## Project structure
 
-## Project files
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `style.css`, `script.js`, `menu-data.js` | Customer-facing website and menu |
+| `admin.html`, `admin.css`, `admin.js` | Private owner dashboard |
+| `server.mjs` | HTTP API, SQLite database, authentication, bookings, orders, and payment integration |
+| `images/`, `photo-credits.html` | Website photography and attribution |
+| `data/brew-bite.sqlite` | Local database created at runtime; not committed |
+| `photo_*.py`, `wire_photos.py`, and related utilities | Photo preparation scripts; not required to run the site |
 
-- server.mjs — HTTP API, SQLite schema, bookings, orders, owner authentication and Razorpay integration.
-- index.html, style.css, script.js, menu-data.js — customer experience.
-- admin.html, admin.css, admin.js — private owner dashboard.
-- data/brew-bite.sqlite — generated local database; excluded from source control.
-- photo-credits.html and images/ — website photos and their attribution. Thirty-four selected menu photos are AI-generated and labeled on the credits page.
+Thirty-four selected menu images are AI-generated and identified on the photo credits page.
 
-The earlier photo-refresh Python scripts are asset-preparation utilities. They are not needed to run the website.
+## License
+
+No license is included yet. Contact the repository owner before reusing or redistributing this project.
