@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Brew &amp; Bite café reel</title>
+  <desc id="desc">A warm illustrated coffee cup and the Brew &amp; Bite name.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f4ead7"/>
+      <stop offset="1" stop-color="#d9c7a8"/>
+    </linearGradient>
+    <linearGradient id="coffee" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#9a6240"/>
+      <stop offset="1" stop-color="#523527"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="#304537"/>
+  <circle cx="765" cy="130" r="218" fill="#c5875d" opacity=".32"/>
+  <circle cx="142" cy="595" r="242" fill="#e3cfaa" opacity=".12"/>
+  <path d="M210 530h435l-34 125H245z" fill="#23392d"/>
+  <ellipse cx="432" cy="516" rx="236" ry="37" fill="#f0e3cc"/>
+  <path d="M260 367h333l-27 150a43 43 0 0 1-43 35H330a43 43 0 0 1-43-35z" fill="url(#paper)"/>
+  <path d="M588 393h40a70 70 0 0 1 0 140h-51l5-35h46a35 35 0 0 0 0-70h-46z" fill="#e6d6bb"/>
+  <ellipse cx="426" cy="368" rx="167" ry="45" fill="#f5ebd9"/>
+  <ellipse cx="426" cy="373" rx="140" ry="29" fill="url(#coffee)"/>
+  <path d="M364 372c31-23 87-23 119 0-20 21-99 21-119 0zm44 0c-7-14 21-20 32-7 11 12-5 24-19 21" fill="none" stroke="#f2dfbd" stroke-width="7" stroke-linecap="round"/>
+  <path d="M435 353c-17 9-24 18-24 27m26-29c19 9 27 18 27 27" fill="none" stroke="#f2dfbd" stroke-width="5" stroke-linecap="round"/>
+  <text x="480" y="150" fill="#f7f2e8" font-family="Georgia,serif" font-size="55" text-anchor="middle">brew&amp;bite</text>
+  <path d="M396 183h168" stroke="#d8956c" stroke-width="3"/>
+  <text x="480" y="231" fill="#e6d6bb" font-family="Arial,sans-serif" font-size="16" letter-spacing="5" text-anchor="middle">A LITTLE MOMENT, MADE WITH CARE</text>
+  <text x="480" y="690" fill="#f7f2e8" font-family="Arial,sans-serif" font-size="14" letter-spacing="3" text-anchor="middle">COFFEE · BRUNCH · SOMETHING SWEET</text>
+</svg>

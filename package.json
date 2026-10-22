@@ -1,0 +1,13 @@
+{
+  "name": "brew-and-bite-fullstack",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "check": "node --check server.mjs && node --check script.js && node --check menu-data.js && node --check admin.js"
+  }
+}

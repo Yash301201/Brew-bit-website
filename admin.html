@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#173328" />
+    <title>Owner dashboard — Brew &amp; Bite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <section class="login-card" id="login-panel" aria-labelledby="login-title" hidden>
+        <a class="back-link" href="/">← Return to the café website</a>
+        <p class="eyebrow">Brew &amp; Bite · Owner portal</p>
+        <h1 id="login-title">Welcome <em>back.</em></h1>
+        <p class="muted">Sign in to manage reservations, orders, sales, reviews and your menu.</p>
+        <form id="login-form">
+          <label>Email address<input name="email" type="email" autocomplete="username" required maxlength="160" /></label>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required maxlength="256" /></label>
+          <button class="primary-button" type="submit">Sign in to the dashboard</button>
+          <p class="form-message" id="login-message" role="status"></p>
+        </form>
+        <p class="setup-hint" id="setup-hint" hidden>Set ADMIN_EMAIL and a unique ADMIN_PASSWORD in your local .env file, then restart the server.</p>
+      </section>
+
+      <section class="dashboard" id="dashboard" hidden>
+        <header class="dashboard-header">
+          <a class="brand" href="/" aria-label="Brew and Bite homepage"><span class="brand-mark">☕</span><span>Brew <i>&amp;</i> Bite</span></a>
+          <div class="owner-actions"><span id="owner-email"></span><a href="/" class="subtle-link">View website</a><button class="ghost-button" id="logout-button" type="button">Sign out</button></div>
+        </header>
+        <div class="dashboard-intro">
+          <div><p class="eyebrow">Your café, at a glance</p><h1>Good morning,<br /><em>owner.</em></h1></div>
+          <p class="muted">Live records from customer bookings and checkout. Sales count only payments marked captured or collected.</p>
+        </div>
+
+        <div class="notice" id="payment-notice" hidden></div>
+        <div class="notice notice-error" id="dashboard-message" role="status" hidden></div>
+
+        <nav class="dashboard-tabs" aria-label="Owner dashboard sections">
+          <button class="tab-button is-active" type="button" data-panel="overview">Overview</button>
+          <button class="tab-button" type="button" data-panel="orders">Orders &amp; payments</button>
+          <button class="tab-button" type="button" data-panel="bookings">Table bookings</button>
+          <button class="tab-button" type="button" data-panel="reviews">Reviews</button>
+          <button class="tab-button" type="button" data-panel="menu">Menu controls</button>
+          <button class="tab-button" type="button" data-panel="account">Account</button>
+        </nav>
+
+        <section class="panel is-active" id="panel-overview" aria-labelledby="overview-title">
+          <div class="panel-heading"><div><p class="eyebrow">Today</p><h2 id="overview-title">A clear view of service.</h2></div><button class="ghost-button" id="refresh-button" type="button">Refresh data</button></div>
+          <div class="metric-grid">
+            <article class="metric-card"><span>Captured sales today</span><strong id="sales-today">₹0</strong><small id="captured-count">0 captured payments</small></article>
+            <article class="metric-card"><span>Orders to manage</span><strong id="pending-orders">0</strong><small>Not completed or cancelled</small></article>
+            <article class="metric-card"><span>Upcoming bookings</span><strong id="upcoming-bookings">0</strong><small>Confirmed or seated</small></article>
+            <article class="metric-card"><span>Reviews to check</span><strong id="pending-reviews">0</strong><small>Waiting for approval</small></article>
+          </div>
+          <div class="overview-grid">
+            <article class="surface chart-surface"><div class="surface-heading"><div><p class="eyebrow">Last 7 days</p><h3>Captured sales</h3></div><span class="chart-legend"><i></i> Rupees</span></div><canvas id="sales-chart" height="240" aria-label="Sales for the last seven days"></canvas></article>
+            <article class="surface"><div class="surface-heading"><div><p class="eyebrow">Popular picks</p><h3>Top selling items</h3></div></div><ol class="top-items" id="top-items"></ol></article>
+          </div>
+          <p class="data-note">This dashboard records online payments confirmed by Razorpay and in-person payments recorded by an owner. Reconcile card, UPI and cash totals with your payment provider and cash register.</p>
+        </section>
+
+        <section class="panel" id="panel-orders" aria-labelledby="orders-title">
+          <div class="panel-heading"><div><p class="eyebrow">Customer orders</p><h2 id="orders-title">Orders &amp; payments</h2></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Amount &amp; payment</th><th>Service status</th><th>Actions</th></tr></thead><tbody id="orders-body"></tbody></table></div>
+          <p class="empty-state" id="orders-empty" hidden>No customer orders yet.</p>
+        </section>
+
+        <section class="panel" id="panel-bookings" aria-labelledby="bookings-title">
+          <div class="panel-heading"><div><p class="eyebrow">Seating plan</p><h2 id="bookings-title">Table bookings</h2></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Booking</th><th>Date &amp; time</th><th>Guest</th><th>Party</th><th>Notes</th><th>Status</th></tr></thead><tbody id="bookings-body"></tbody></table></div>
+          <p class="empty-state" id="bookings-empty" hidden>No upcoming bookings.</p>
+          <p class="data-note">Available times and seat capacity are configured in .env. The booking form checks overlapping one-hour reservations before confirming a table.</p>
+        </section>
+
+        <section class="panel" id="panel-reviews" aria-labelledby="reviews-title">
+          <div class="panel-heading"><div><p class="eyebrow">Guest feedback</p><h2 id="reviews-title">Reviews &amp; moderation</h2></div></div>
+          <div class="review-list" id="reviews-list"></div>
+          <p class="empty-state" id="reviews-empty" hidden>No customer reviews yet.</p>
+        </section>
+
+        <section class="panel" id="panel-menu" aria-labelledby="menu-title">
+          <div class="panel-heading"><div><p class="eyebrow">Service controls</p><h2 id="menu-title">Menu availability &amp; prices</h2></div></div>
+          <p class="muted">Changes save to the café database and update the customer menu. Confirm prices, taxes and allergen details before launch.</p>
+          <div class="menu-admin-list" id="menu-admin-list"></div>
+        </section>
+
+        <section class="panel" id="panel-account" aria-labelledby="account-title">
+          <div class="panel-heading"><div><p class="eyebrow">Security</p><h2 id="account-title">Owner account</h2></div></div>
+          <form class="password-form" id="password-form">
+            <label>Current password<input name="currentPassword" type="password" autocomplete="current-password" required maxlength="256" /></label>
+            <label>New password<input name="newPassword" type="password" autocomplete="new-password" required minlength="14" maxlength="256" /><small>Use at least 14 characters.</small></label>
+            <button class="primary-button" type="submit">Update password</button>
+            <p class="form-message" id="password-message" role="status"></p>
+          </form>
+        </section>
+        <footer class="dashboard-footer"><span>Private owner area · Brew &amp; Bite</span><a href="/">Back to the customer website</a></footer>
+      </section>
+    </main>
+  </body>
+</html>
