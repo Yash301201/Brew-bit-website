@@ -77,9 +77,15 @@ npm start
 
 Open [http://localhost:4173](http://localhost:4173) for the customer site and [http://localhost:4173/admin](http://localhost:4173/admin) for the owner dashboard.
 
+**Local only:** These links work while `npm start` is running on your computer. A `localhost` link opened from GitHub points to the visitor's own computer; it is not a public website.
+
 The server creates `data/brew-bite.sqlite` on first run. The database and `.env` are excluded from Git. Keep secure backups of the database; the first owner account is created when the database has no owner yet. Change the password later from **Owner dashboard → Account**.
 
 For local development with automatic server restarts, run `npm run dev`. Run `npm run check` for JavaScript syntax checks; it is not a full automated test suite.
+
+## Deploy the full app
+
+GitHub Pages serves static files and cannot run this project's Node.js server or SQLite API. Use the included [Render deployment guide](DEPLOYMENT.md) to deploy the complete site, API, and persistent database. After deployment, share the public HTTPS service URL instead of a `localhost` URL.
 
 ## Optional online payments
 
