@@ -329,9 +329,13 @@ function limitRequests(request, key, maximum, milliseconds) {
 function sameOrigin(request) {
   const origin = request.headers.origin;
   if (!origin) return;
+  const forwardedProtocol = String(request.headers["x-forwarded-proto"] || "").split(",")[0].trim().toLowerCase();
+  const protocol = ["http", "https"].includes(forwardedProtocol)
+    ? forwardedProtocol
+    : request.socket.encrypted ? "https" : "http";
   const expected = APP_ORIGIN
     ? APP_ORIGIN.replace(/\/$/, "")
-    : (request.socket.encrypted ? "https" : "http") + "://" + request.headers.host;
+    : protocol + "://" + request.headers.host;
   if (origin !== expected) throw new HttpError(403, "This request did not come from the café website.");
 }
 
