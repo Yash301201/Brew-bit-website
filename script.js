@@ -799,7 +799,8 @@ async function loadGuestReviews() {
       target.append(card);
     });
   } catch {
-    target.textContent = "Guest reviews will appear once the café server is running.";
+    target.textContent = "Guest reviews need the café server and are unavailable in this preview.";
+    reviewForm.querySelector('button[type="submit"]').disabled = true;
   }
 }
 
@@ -844,10 +845,14 @@ async function syncMenuAndConfig() {
       checkoutMessage.textContent = "Online checkout is not set up yet. Choose pay at café to place an order.";
     }
   } catch {
-    bookingMessage.textContent = "Start the café server to take bookings and send orders. Your menu can still be browsed.";
-    checkoutMessage.textContent = "Order checkout is unavailable until the café server is running.";
+    bookingMessage.textContent = "View-only preview: table bookings need the café server.";
+    checkoutMessage.textContent = "View-only preview: orders need the café server.";
     bookingForm.querySelector(".booking-submit").disabled = true;
     checkoutForm.querySelector(".checkout-submit").disabled = true;
+    reviewForm.querySelector('button[type="submit"]').disabled = true;
+    onlinePaymentInput.disabled = true;
+    onlinePaymentLabel.hidden = true;
+    document.querySelector('.site-footer a[href="/admin"]')?.remove();
   }
 }
 
