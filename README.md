@@ -77,9 +77,15 @@ npm start
 
 Open [http://localhost:4173](http://localhost:4173) for the customer site and [http://localhost:4173/admin](http://localhost:4173/admin) for the owner dashboard.
 
+These links are for local development only. They work while `npm start` is running on your computer; opening `localhost` from GitHub points to the visitor's own computer.
+
 The server creates `data/brew-bite.sqlite` on first run. The database and `.env` are excluded from Git. Keep secure backups of the database; the first owner account is created when the database has no owner yet. Change the password later from **Owner dashboard → Account**.
 
 For local development with automatic server restarts, run `npm run dev`. Run `npm run check` for JavaScript syntax checks; it is not a full automated test suite.
+
+## Free portfolio preview on GitHub Pages
+
+This public repository can be published on GitHub Pages for free as a static portfolio preview. The preview displays the café website and bundled menu, but it does not run the Node.js server. Orders, table bookings, guest reviews, online payments, and the owner dashboard are unavailable. Do not use the preview to accept real customer orders or payments. See [GITHUB_PAGES.md](GITHUB_PAGES.md) for setup steps.
 
 ## Optional online payments
 
