@@ -77,17 +77,15 @@ Start the app:
 npm start
 ```
 
-Open [http://localhost:4173](http://localhost:4173) for the customer site and [http://localhost:4173/admin](http://localhost:4173/admin) for the owner dashboard.
+With `npm start` running, open `http://localhost:4173` for the customer site or `http://localhost:4173/admin` for the owner dashboard on the same computer. If you see `ERR_CONNECTION_REFUSED`, start the server from the project folder first.
 
-These links are for local development only. They work while `npm start` is running on your computer; opening `localhost` from GitHub points to the visitor's own computer.
+These addresses are for local development only. A recruiter should use the [live demo](https://yash301201.github.io/Brew-bit-website/) above; a localhost address always points to the visitor's own computer.
 
 The server creates `data/brew-bite.sqlite` on first run. The database and `.env` are excluded from Git. Keep secure backups of the database; the first owner account is created when the database has no owner yet. Change the password later from **Owner dashboard → Account**.
 
 For local development with automatic server restarts, run `npm run dev`. Run `npm run check` for JavaScript syntax checks; it is not a full automated test suite.
 
 ## Live portfolio preview
-
-[Open the live Brew & Bite preview](https://yash301201.github.io/Brew-bit-website/) · [Browse the source code](https://github.com/Yash301201/Brew-bit-website)
 
 The preview showcases the storefront, photography, and searchable café menu. It is hosted as a static GitHub Pages site, so it does not run the Node.js API or SQLite database. Orders, table bookings, reviews, online payments, and the owner dashboard need the backend and are unavailable in this preview. See [GITHUB_PAGES.md](GITHUB_PAGES.md) for details.
 
