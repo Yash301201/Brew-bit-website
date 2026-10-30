@@ -1,22 +1,28 @@
-# Free GitHub Pages portfolio preview
+# Published GitHub Pages portfolio preview
 
-GitHub Pages is a free static host for this public repository. It can display the café website and its bundled menu, but it cannot run the Node.js server or SQLite database. The page is view-only: ordering, bookings, reviews, payments, and the owner dashboard require a backend and are disabled when the API is unavailable.
+**Live site:** [https://yash301201.github.io/Brew-bit-website/](https://yash301201.github.io/Brew-bit-website/)
 
-## Publish the site
+The public preview is served from the repository's `main` branch, root folder. It is intended to let recruiters and visitors browse the café storefront, menu, and photography without starting a local server.
 
-1. Merge the GitHub Pages preview pull request into the main branch.
-2. Open the repository on GitHub and choose **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Select **main** as the branch and **/(root)** as the folder, then click **Save**.
-5. Wait for the Pages build to finish. The Pages settings screen will show the public site URL. For this repository, it is normally https://yash301201.github.io/Brew-bit-website/.
+## What works in the preview
 
-## Check the preview
+- Browse the café homepage and photo gallery.
+- Search, sort, and filter the bundled menu; view menu photos and prices.
 
-- Open the site URL shown in **Settings → Pages**.
-- Confirm the homepage, menu photos, and menu filters load.
-- Confirm booking, ordering, reviews, payments, and the owner dashboard are unavailable. This is expected for a static preview.
-- Share the GitHub Pages URL, not http://localhost:4173.
+## What needs the backend
 
-This setup is for a portfolio preview only. GitHub Pages is not a backend host and must not be used to run a live café business or accept e-commerce transactions. Keep real credentials out of the repository. The .env file is ignored by Git; never remove that protection or commit its contents.
+GitHub Pages serves static files only. It cannot run the Node.js API or SQLite database, so ordering, table bookings, reviews, Razorpay payments, and the private owner dashboard are unavailable in the preview. The dashboard source is in [admin.html](admin.html), and the server implementation is in [server.mjs](server.mjs).
 
-To run the full app locally, start the server with npm start and open http://localhost:4173 on the same computer. For live ordering, bookings, and durable records, deploy the Node.js server with persistent database storage instead of using this static preview.
+Do not use this static preview to accept real orders or payments. The menu prices and café details are illustrative.
+
+## Run the full app locally
+
+Install Node.js 22.13 or later, configure a local `.env` from `.env.example`, and run:
+
+```sh
+npm start
+```
+
+Then open [http://localhost:4173](http://localhost:4173) on the same computer. The local dashboard is at [http://localhost:4173/admin](http://localhost:4173/admin). These localhost addresses work only while the server is running; use the live GitHub Pages URL when sharing the project with recruiters.
+
+For real ordering, bookings, and durable records, deploy the Node.js server with persistent database storage.
