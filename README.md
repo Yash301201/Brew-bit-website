@@ -1,5 +1,7 @@
 # Brew & Bite — Full-Stack Café Ordering Platform
 
+**Live demo:** [Brew & Bite on GitHub Pages](https://yash301201.github.io/Brew-bit-website/) · **Source:** [GitHub repository](https://github.com/Yash301201/Brew-bit-website)
+
 A full-stack café ordering and reservation application with a customer storefront, private owner dashboard, Node.js REST API, and SQLite persistence. Guests can discover menu items, place pickup or dine-in orders, request reservations, and submit reviews; owners can manage operations from one dashboard. Razorpay Checkout is available as an optional payment integration.
 
 > **Project status:** This is a working MVP and portfolio project. Replace the sample café details and complete the launch checklist before using it for a real business or accepting live payments.
@@ -83,9 +85,11 @@ The server creates `data/brew-bite.sqlite` on first run. The database and `.env`
 
 For local development with automatic server restarts, run `npm run dev`. Run `npm run check` for JavaScript syntax checks; it is not a full automated test suite.
 
-## Free portfolio preview on GitHub Pages
+## Live portfolio preview
 
-This public repository can be published on GitHub Pages for free as a static portfolio preview. The preview displays the café website and bundled menu, but it does not run the Node.js server. Orders, table bookings, guest reviews, online payments, and the owner dashboard are unavailable. Do not use the preview to accept real customer orders or payments. See [GITHUB_PAGES.md](GITHUB_PAGES.md) for setup steps.
+[Open the live Brew & Bite preview](https://yash301201.github.io/Brew-bit-website/) · [Browse the source code](https://github.com/Yash301201/Brew-bit-website)
+
+The preview showcases the storefront, photography, and searchable café menu. It is hosted as a static GitHub Pages site, so it does not run the Node.js API or SQLite database. Orders, table bookings, reviews, online payments, and the owner dashboard need the backend and are unavailable in this preview. See [GITHUB_PAGES.md](GITHUB_PAGES.md) for details.
 
 ## Optional online payments
 
