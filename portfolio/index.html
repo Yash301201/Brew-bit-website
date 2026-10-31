@@ -229,6 +229,7 @@
     .contact-panel { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: clamp(24px, 4vw, 42px); background: linear-gradient(115deg, #27223b, #18251f 76%); }
     :root[data-theme="light"] .contact-panel { background: linear-gradient(115deg, #e9e3f5, #e3eddd 76%); }
     .contact-panel::after { content: ""; width: 190px; height: 190px; position: absolute; right: 150px; bottom: -140px; border-radius: 50%; background: var(--violet); opacity: .14; filter: blur(4px); }
+    .contact-links { position: relative; z-index: 1; flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 9px; }
     .contact h2 { margin-bottom: 11px; font-size: clamp(31px, 4.6vw, 49px); }
     .contact p { max-width: 500px; margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
     .contact .button { position: relative; z-index: 1; flex: 0 0 auto; }
@@ -305,7 +306,7 @@
         <div class="eyebrow"><span class="eyebrow-dot"></span> FRESHER · OPEN TO ENTRY-LEVEL ROLES</div>
         <h1 id="hero-title">Curious mind.<br>Hands-on <span class="gradient-text">builder.</span></h1>
         <p>I'm Surige Sai Siva Yashaswi, an early-career developer turning ideas into useful software. I enjoy the full journey—from shaping an interface and connecting the backend to making data clear and dependable.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#work">Explore my work <span class="arrow" aria-hidden="true">↘</span></a><a class="button" href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">GitHub profile <span class="arrow" aria-hidden="true">↗</span></a></div>
+        <div class="hero-actions"><a class="button button-primary" href="#work">Explore my work <span class="arrow" aria-hidden="true">↘</span></a><a class="button" href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">GitHub profile <span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="https://www.linkedin.com/in/yashaswi-surige-269341200/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a></div>
         <div class="hero-facts" aria-label="Portfolio summary"><div class="fact"><strong>05</strong><span>selected builds</span></div><div class="fact"><strong>03</strong><span>areas of exploration</span></div><div class="fact"><strong>∞</strong><span>more to learn</span></div></div>
       </div>
       <aside class="hero-art reveal" aria-label="Surige Sai Siva Yashaswi's developer profile card">
@@ -354,10 +355,10 @@
 
     <section class="shell" id="about" aria-labelledby="about-title"><div class="about-panel reveal"><div><span class="section-kicker">A little about me</span><h2 id="about-title">Early in my career. Already building with intent.</h2></div><div class="about-copy"><p>I'm a fresher who enjoys working across the product: shaping an interface, connecting the logic behind it, and making the data dependable. My GitHub shows that range—from café and campus workflows to AI learning tools and data pipelines.</p><p>I'm looking for opportunities to grow as a software developer, contribute to a thoughtful team, and keep turning what I learn into working projects.</p><div class="about-note"><span aria-hidden="true">↗</span> Curious, collaborative, ready for the next build.</div></div></div></section>
 
-    <section class="shell contact reveal" id="contact" aria-labelledby="contact-title"><div class="contact-panel"><div><span class="section-kicker">Next up</span><h2 id="contact-title">Let's build something useful.</h2><p>Have an entry-level opportunity, feedback on a project, or an interesting problem to solve? I’d be glad to connect.</p></div><a class="button button-primary" href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">Say hello on GitHub <span class="arrow" aria-hidden="true">↗</span></a></div></section>
+    <section class="shell contact reveal" id="contact" aria-labelledby="contact-title"><div class="contact-panel"><div><span class="section-kicker">Next up</span><h2 id="contact-title">Let's build something useful.</h2><p>Have an entry-level opportunity, feedback on a project, or an interesting problem to solve? I’d be glad to connect.</p></div><div class="contact-links"><a class="button button-primary" href="https://www.linkedin.com/in/yashaswi-surige-269341200/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a></div></div></section>
   </main>
 
-  <footer class="shell footer"><span>© <span id="year">2026</span> Surige Sai Siva Yashaswi · Built from projects, curiosity, and iteration.</span><div class="footer-links"><a href="#top">Back to top ↑</a><a href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
+  <footer class="shell footer"><span>© <span id="year">2026</span> Surige Sai Siva Yashaswi · Built from projects, curiosity, and iteration.</span><div class="footer-links"><a href="#top">Back to top ↑</a><a href="https://github.com/Yash301201" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/yashaswi-surige-269341200/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></footer>
   <script>
     const root = document.documentElement;
     const themeButton = document.querySelector('.theme-toggle');
